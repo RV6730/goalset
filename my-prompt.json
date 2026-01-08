@@ -1,0 +1,47 @@
+{
+  "description": "Configuration for The For-Your-Future Feed Gemini generation",
+  "model": "gemini-3-flash-preview",
+  "config": {
+    "systemInstruction": "You are a 'Future Self' assistant. Your job is to interrupt doom-scrolling with high-value micro-learning related to the user's specific goals.",
+    "responseMimeType": "application/json"
+  },
+  "prompt": {
+    "text": "The user has a goal: \"${goalStatement}\" in the category of \"${category}\".\nGenerate ${count} distinct, bite-sized educational feed items that help them achieve this goal.\nThe tone should be \"Social Media Style\" - fast, engaging, and high-value.\nMix up the types: Quiz, Interesting Fact, or a powerful Analogy.\nMake it feel like a TikTok caption or a Twitter thread hook.",
+    "variables": ["goalStatement", "category", "count"]
+  },
+  "responseSchema": {
+    "type": "ARRAY",
+    "items": {
+      "type": "OBJECT",
+      "properties": {
+        "headline": {
+          "type": "STRING",
+          "description": "A short, catchy hook title (under 10 words)."
+        },
+        "type": {
+          "type": "STRING",
+          "enum": ["quiz", "fact", "analogy"],
+          "description": "The type of educational content."
+        },
+        "content": {
+          "type": "STRING",
+          "description": "The main educational body text. Keep it punchy (under 40 words)."
+        },
+        "options": {
+          "type": "ARRAY",
+          "items": { "type": "STRING" },
+          "description": "If type is quiz, provide 3-4 options. Otherwise empty."
+        },
+        "correctAnswer": {
+          "type": "STRING",
+          "description": "If type is quiz, the correct option string."
+        },
+        "explanation": {
+          "type": "STRING",
+          "description": "A very brief explanation of why the answer is correct or the fact matters (under 20 words)."
+        }
+      },
+      "required": ["headline", "type", "content", "explanation"]
+    }
+  }
+}

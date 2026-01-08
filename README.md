@@ -1,20 +1,13 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# The For-Your-Future Feed
 
-# Run and deploy your AI Studio app
+A Reverse Content Gatekeeper that intercepts instant gratification. Instead of blocking distraction apps, it swaps the feed with AI-generated, bite-sized lessons related to your long-term goals.
 
-This contains everything you need to run your app locally.
+## Overview
 
-View your app in AI Studio: https://ai.studio/apps/drive/1bMFGfaJxdNy0QOQ5cWIH66eFIDu1kYJN
+This app simulates a mobile interface that helps users gatekeep their dopamine. When a user attempts to open a high-dopamine "distraction" app, the system intercepts the request and presents a "Future Feed"—a series of bite-sized, AI-generated learning cards based on the user's selected goals. Only after consuming this educational content is the distraction app unlocked.
 
-## Run Locally
+## Prompt Configuration
 
-**Prerequisites:**  Node.js
+To view the prompt: Download `my-prompt.json` from this repo and click 'Open' in Google AI Studio.
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+*(Note: You must export your configuration from Google AI Studio and upload the resulting JSON file to this repository for this feature to work.)*
