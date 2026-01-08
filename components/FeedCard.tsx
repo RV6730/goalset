@@ -33,7 +33,7 @@ export const FeedCard: React.FC<FeedCardProps> = ({ item, onComplete, index, tot
   };
 
   return (
-    <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden flex flex-col h-[500px]">
+    <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden flex flex-col h-[500px] max-h-[70vh]">
       {/* Progress Bar */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gray-800">
         <div 

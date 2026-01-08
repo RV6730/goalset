@@ -8,9 +8,9 @@ import { FeedCard } from './components/FeedCard';
 
 // Sub-components for cleaner App.tsx
 const PhoneFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="relative w-full h-full md:h-[800px] md:w-[400px] bg-black md:rounded-[3rem] md:border-[8px] md:border-gray-800 overflow-hidden shadow-2xl flex flex-col">
+  <div className="relative w-full h-full md:w-[400px] md:h-[800px] md:max-h-[90vh] bg-black md:rounded-[3rem] md:border-[8px] md:border-gray-800 overflow-hidden shadow-2xl flex flex-col transition-all duration-300">
     {/* Dynamic Island / Notch Mockup */}
-    <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-7 bg-black rounded-b-2xl z-50"></div>
+    <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-7 bg-black rounded-b-2xl z-50 pointer-events-none"></div>
     {children}
   </div>
 );
@@ -238,7 +238,7 @@ const App = () => {
             </div>
         </div>
 
-        <div className="flex-grow flex items-center justify-center p-4 relative">
+        <div className="flex-grow flex items-center justify-center p-4 relative overflow-hidden">
           {isLoadingFeed ? (
             <div className="text-center">
                <div className="w-16 h-16 border-4 border-brand-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
