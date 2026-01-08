@@ -6,7 +6,7 @@
 A Reverse Content Gatekeeper that intercepts instant gratification. Instead of blocking distraction apps, it swaps the feed with AI-generated, bite-sized lessons related to your long-term goals.
 
 ## 🔗 Live Demo
-**[🚀 Launch App: Turn Doom-Scrolling into Micro-Learning](https://goalset-umqe.vercel.app)**
+**https://goalset-umqe.vercel.app**
 
 ## Overview
 
