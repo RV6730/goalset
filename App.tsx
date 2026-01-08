@@ -39,6 +39,7 @@ const App = () => {
   
   const [isLoadingFeed, setIsLoadingFeed] = useState(false);
   const [goalInput, setGoalInput] = useState('');
+  const [goalCategory, setGoalCategory] = useState<Goal['category']>('general');
   
   // Timer for reward expiration
   useEffect(() => {
@@ -64,7 +65,7 @@ const App = () => {
     if (!goalInput.trim()) return;
     setState(prev => ({
       ...prev,
-      goal: { id: 'g1', statement: goalInput, category: 'general' },
+      goal: { id: 'g1', statement: goalInput, category: goalCategory },
       view: 'home'
     }));
   };
@@ -88,7 +89,7 @@ const App = () => {
 
     // Generate content based on goal
     if (state.goal) {
-      const items = await generateFutureFeedContent(state.goal.statement, INITIAL_REQUIRED_ITEMS);
+      const items = await generateFutureFeedContent(state.goal.statement, state.goal.category, INITIAL_REQUIRED_ITEMS);
       setState(prev => ({ 
         ...prev, 
         feedItems: items,
@@ -123,31 +124,74 @@ const App = () => {
 
   // --- Views ---
 
-  const renderOnboarding = () => (
-    <div className="flex flex-col h-full bg-brand-dark p-8 justify-center">
-      <div className="mb-8 text-center">
-        <div className="w-20 h-20 bg-gradient-to-br from-brand-accent to-blue-500 rounded-3xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-brand-accent/30">
-          <i className="fas fa-brain text-4xl text-white"></i>
-        </div>
-        <h1 className="text-3xl font-bold mb-2">Future Feed</h1>
-        <p className="text-gray-400">Gatekeep your dopamine. Feed your future self.</p>
-      </div>
+  const renderOnboarding = () => {
+    const categories: { id: Goal['category'], label: string, icon: string }[] = [
+      { id: 'general', label: 'General Improvement', icon: 'fa-star' },
+      { id: 'coding', label: 'Coding & Tech', icon: 'fa-code' },
+      { id: 'language', label: 'Language Learning', icon: 'fa-language' },
+      { id: 'fitness', label: 'Health & Fitness', icon: 'fa-running' },
+      { id: 'finance', label: 'Personal Finance', icon: 'fa-coins' },
+    ];
 
-      <div className="space-y-4">
-        <label className="block text-sm font-medium text-gray-300">What is your current goal?</label>
-        <input 
-          type="text" 
-          value={goalInput}
-          onChange={(e) => setGoalInput(e.target.value)}
-          placeholder="e.g., Learn Go, Run a 5k, Save $500"
-          className="w-full bg-gray-800 border border-gray-700 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all"
-        />
-        <Button onClick={handleSetGoal} className="w-full mt-4" disabled={!goalInput.trim()}>
-          Start Inverting
-        </Button>
+    // Get active icon for the header/input
+    const activeCategory = categories.find(c => c.id === goalCategory) || categories[0];
+
+    return (
+      <div className="flex flex-col h-full bg-brand-dark p-8 justify-center overflow-y-auto no-scrollbar">
+        <div className="mb-8 text-center shrink-0">
+          <div className="w-20 h-20 bg-gradient-to-br from-brand-accent to-blue-500 rounded-3xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-brand-accent/30">
+            <i className={`fas ${activeCategory.icon} text-4xl text-white transition-all duration-300`}></i>
+          </div>
+          <h1 className="text-3xl font-bold mb-2">Future Feed</h1>
+          <p className="text-gray-400">Gatekeep your dopamine.</p>
+        </div>
+
+        <div className="space-y-6">
+          <div className="relative">
+            <label className="block text-xs uppercase tracking-wider font-bold text-gray-400 mb-2">1. Choose Focus Area</label>
+            <div className="relative">
+              <select
+                value={goalCategory}
+                onChange={(e) => setGoalCategory(e.target.value as Goal['category'])}
+                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl p-4 pl-12 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all cursor-pointer shadow-sm"
+              >
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id} className="bg-gray-800 py-2">
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
+              
+              {/* Custom Icon Overlay */}
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-brand-accent">
+                <i className={`fas ${activeCategory.icon} text-lg`}></i>
+              </div>
+              
+              {/* Chevron Overlay */}
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-500">
+                <i className="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs uppercase tracking-wider font-bold text-gray-400 mb-2">2. Define Specific Goal</label>
+            <input 
+              type="text" 
+              value={goalInput}
+              onChange={(e) => setGoalInput(e.target.value)}
+              placeholder="e.g. Learn React Hooks, Save $500..."
+              className="w-full bg-gray-800 border border-gray-700 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-accent transition-all"
+            />
+          </div>
+          
+          <Button onClick={handleSetGoal} className="w-full mt-4" disabled={!goalInput.trim()}>
+            Start Inverting <i className="fas fa-arrow-right ml-2"></i>
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderHome = () => (
     <div className="h-full bg-cover bg-center relative" style={{ backgroundImage: 'url(https://picsum.photos/400/800?blur=4)' }}>

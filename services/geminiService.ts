@@ -39,7 +39,7 @@ const feedItemSchema: Schema = {
   required: ["headline", "type", "content", "explanation"],
 };
 
-export const generateFutureFeedContent = async (goalStatement: string, count: number = 3): Promise<FeedItem[]> => {
+export const generateFutureFeedContent = async (goalStatement: string, category: string, count: number = 3): Promise<FeedItem[]> => {
   if (!apiKey) {
     console.error("API Key is missing");
     // Return fallback content if no API key is set to prevent app crash
@@ -57,7 +57,7 @@ export const generateFutureFeedContent = async (goalStatement: string, count: nu
   try {
     const model = 'gemini-3-flash-preview';
     const prompt = `
-      The user has a goal: "${goalStatement}".
+      The user has a goal: "${goalStatement}" in the category of "${category}".
       Generate ${count} distinct, bite-sized educational feed items that help them achieve this goal.
       The tone should be "Social Media Style" - fast, engaging, and high-value.
       Mix up the types: Quiz, Interesting Fact, or a powerful Analogy.
