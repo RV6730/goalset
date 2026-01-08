@@ -1,6 +1,14 @@
 # The For-Your-Future Feed
 
+<!-- Replace the link below with your actual deployed URL (e.g., from Vercel or GitHub Pages) -->
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://your-username.github.io/your-repo-name)
+
 A Reverse Content Gatekeeper that intercepts instant gratification. Instead of blocking distraction apps, it swaps the feed with AI-generated, bite-sized lessons related to your long-term goals.
+
+## 🔗 Live Demo
+**[Click here to launch the app](https://your-username.github.io/your-repo-name)**
+
+*(Note: Replace the URL above with your actual deployment link so collaborators can access it directly.)*
 
 ## Overview
 
